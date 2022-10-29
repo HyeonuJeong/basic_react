@@ -4,13 +4,13 @@ import React,{useEffect} from "react";
 function User({ user,onRemove, onToggle }) {
   
   useEffect(() => {
-    console.log('컴포넌트가 화면에 나타남');
+
     console.log(user)
     return () => {
-      console.log('컴포넌트가 화면에서 사라짐');
+
       console.log(user)
     };
-  }, [user]);
+  }, [user.usename]);
 
 
     return (
