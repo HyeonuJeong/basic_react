@@ -1,4 +1,4 @@
-import React,{useRef, useState} from 'react';
+import React,{useCallback, useRef, useState, useMemo} from 'react';
 import CreateUser from './CreateUser';
 import UserList from './UserList';
 
@@ -66,20 +66,25 @@ function App() {
   };
 
 
-  const onRemove = id => {
+  const onRemove = useCallback(
+  id => {
     // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
     // = user.id 가 id 인 것을 제거함
     setUsers(users.filter(user => user.id !== id));
-  };
+  },[users])
 
-  const onToggle = id => {
+  const onToggle =useCallback(
+
+  id => {
     setUsers(
       users.map(user =>
         user.id === id ? { ...user, active: !user.active } : user
       )
     );
-  };
-  const count = countActiveUsers(users);
+  },[users]
+  )
+
+  const count = useMemo(() => countActiveUsers(users), [users]);
   return (
     <>
     <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
